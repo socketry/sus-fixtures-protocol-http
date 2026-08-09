@@ -1,6 +1,6 @@
 # Sus::Fixtures::Protocol::HTTP
 
-Provides transport-free test fixtures for {ruby Protocol::HTTP::Middleware} applications.
+Provides transport-free test fixtures for <code class="language-ruby">Protocol::HTTP::Middleware</code> applications.
 
 [![Development Status](https://github.com/socketry/sus-fixtures-protocol-http/workflows/Test/badge.svg)](https://github.com/socketry/sus-fixtures-protocol-http/actions?workflow=Test)
 
@@ -8,11 +8,15 @@ Provides transport-free test fixtures for {ruby Protocol::HTTP::Middleware} appl
 
 Please see the [project documentation](https://socketry.github.io/sus-fixtures-protocol-http/) for more details.
 
-  - [Getting Started](https://socketry.github.io/sus-fixtures-protocol-http/guides/getting-started/index) - Exercise protocol HTTP middleware directly in Sus tests.
+  - [Getting Started](https://socketry.github.io/sus-fixtures-protocol-http/guides/getting-started/index) - This guide explains how to exercise <code class="language-ruby">Protocol::HTTP::Middleware</code> directly, without starting a server.
 
 ## Releases
 
-There are no documented releases.
+Please see the [project releases](https://socketry.github.io/sus-fixtures-protocol-http/releases/index) for all releases.
+
+### v0.1.0
+
+  - Introduce an in-process client and middleware context for protocol HTTP middleware.
 
 ## Contributing
 
