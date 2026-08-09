@@ -17,12 +17,12 @@ group :maintenance, optional: true do
 end
 
 group :test do
-	gem "covered"
 	gem "sus"
+	gem "covered"
+	
+	gem "rubocop"
+	gem "rubocop-md"
+	gem "rubocop-socketry"
 	
 	gem "bake-test"
 end
-
-gem "rubocop", "~> 1.88", group: :test
-gem "rubocop-md", "~> 2.0", group: :test
-gem "rubocop-socketry", "~> 0.11.0", group: :test
