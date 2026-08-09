@@ -4,7 +4,7 @@
 # Copyright, 2026, by Samuel Williams.
 
 require "protocol/http/cookie"
-require "protocol/http/methods"
+require "protocol/http/middleware"
 require "protocol/http/request"
 require "uri"
 
@@ -13,14 +13,15 @@ module Sus
 		module Protocol
 			module HTTP
 				# An in-process client for exercising protocol HTTP middleware.
-				class Client < ::Protocol::HTTP::Methods
+				class Client < ::Protocol::HTTP::Middleware
 					# Initialize the client.
 					#
-					# @parameter app [::Protocol::HTTP::Middleware] The middleware application to exercise.
+					# @parameter delegate [::Protocol::HTTP::Middleware] The middleware to exercise.
 					# @parameter scheme [String] The default request scheme.
 					# @parameter authority [String] The default request authority.
-					def initialize(app, scheme: "http", authority: "localhost")
-						@app = app
+					def initialize(delegate, scheme: "http", authority: "localhost")
+						super(delegate)
+						
 						@scheme = scheme
 						@authority = authority
 						
@@ -29,9 +30,6 @@ module Sus
 						@closed = false
 						@exchange_closed = true
 					end
-					
-					# @attribute [::Protocol::HTTP::Middleware] The middleware application.
-					attr :app
 					
 					# @attribute [String] The default request scheme.
 					attr :scheme
@@ -112,7 +110,7 @@ module Sus
 						@exchange_closed = false
 						
 						begin
-							@last_response = @app.call(request)
+							@last_response = super(request)
 							self.store_cookies(@last_response.headers["set-cookie"])
 							
 							return @last_response
@@ -175,8 +173,12 @@ module Sus
 						return if @closed
 						
 						@closed = true
-						self.close_exchange(error)
-						@app.close
+						
+						begin
+							self.close_exchange(error)
+						ensure
+							super()
+						end
 					end
 					
 					private
