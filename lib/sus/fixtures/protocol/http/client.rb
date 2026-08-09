@@ -49,14 +49,6 @@ module Sus
 					# @attribute [::Protocol::HTTP::Response | Nil] The most recent response.
 					attr :last_response
 					
-					# Set a default request header.
-					#
-					# @parameter name [String] The header name.
-					# @parameter value [String] The header value.
-					def header(name, value)
-						@headers[name.downcase] = value
-					end
-					
 					# Store a cookie for subsequent requests.
 					#
 					# @parameter value [String | ::Protocol::HTTP::Cookie] The cookie to store.

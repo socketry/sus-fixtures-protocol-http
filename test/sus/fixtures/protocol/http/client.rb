@@ -42,14 +42,14 @@ describe Sus::Fixtures::Protocol::HTTP::Client do
 		end
 		
 		it "combines default and request headers" do
-			client.header("X-Default", "default")
+			client.headers["x-default"] = "default"
 			response = client.post("/items", {"x-request" => "request"}, "content")
 			
 			expect(response.read).to be == "POST /items default request"
 		end
 		
 		it "allows request headers to override defaults" do
-			client.header("X-Default", "default")
+			client.headers["x-default"] = "default"
 			response = client.get("/", {"x-default" => "override"})
 			
 			expect(response.read).to be == "GET / override "

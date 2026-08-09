@@ -56,7 +56,7 @@ response = client.request("CUSTOM", "/resource")
 Default headers and cookies are retained across requests:
 
 ``` ruby
-client.header("accept", "application/json")
+client.headers["accept"] = "application/json"
 client.set_cookie("session=abc123")
 
 response = client.get("/account")
