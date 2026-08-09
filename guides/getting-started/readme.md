@@ -1,6 +1,6 @@
 # Getting Started
 
-This guide explains how to exercise {ruby Protocol::HTTP::Middleware} applications directly, without starting a server.
+This guide explains how to exercise {ruby Protocol::HTTP::Middleware} directly, without starting a server.
 
 ## Installation
 
@@ -10,17 +10,17 @@ Add the gem to your project:
 $ bundle add sus-fixtures-protocol-http --group test
 ```
 
-## Application Context
+## Middleware Context
 
-Include {ruby Sus::Fixtures::Protocol::HTTP::ApplicationContext} and provide the middleware application under test:
+Include {ruby Sus::Fixtures::Protocol::HTTP::MiddlewareContext} and provide the middleware under test:
 
 ``` ruby
-require "sus/fixtures/protocol/http/application_context"
+require "sus/fixtures/protocol/http/middleware_context"
 
-describe MyApplication do
-	include Sus::Fixtures::Protocol::HTTP::ApplicationContext
+describe MyMiddleware do
+	include Sus::Fixtures::Protocol::HTTP::MiddlewareContext
 	
-	let(:app) {MyApplication.new}
+	let(:middleware) {MyMiddleware.new}
 	
 	it "serves the index" do
 		response = client.get("/")
@@ -69,4 +69,4 @@ client.get("/old-location")
 client.follow_redirect!
 ```
 
-The client closes the previous request and response before starting another exchange. The application context closes both the final exchange and the middleware application after each test.
+The client closes the previous request and response before starting another exchange. The middleware context closes both the final exchange and the middleware after each test.

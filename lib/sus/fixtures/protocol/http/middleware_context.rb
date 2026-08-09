@@ -10,12 +10,12 @@ module Sus
 	module Fixtures
 		module Protocol
 			module HTTP
-				# A test context for exercising a protocol HTTP middleware application in-process.
-				module ApplicationContext
-					# The middleware application under test.
+				# A test context for exercising protocol HTTP middleware in-process.
+				module MiddlewareContext
+					# The middleware under test.
 					#
-					# @returns [::Protocol::HTTP::Middleware] The middleware application.
-					def app
+					# @returns [::Protocol::HTTP::Middleware] The middleware.
+					def middleware
 						::Protocol::HTTP::Middleware::HelloWorld
 					end
 					
@@ -23,7 +23,7 @@ module Sus
 					#
 					# @returns [Client] The client.
 					def client
-						@client ||= Client.new(app)
+						@client ||= Client.new(middleware)
 					end
 					
 					# The most recent request.

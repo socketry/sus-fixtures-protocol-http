@@ -3,10 +3,10 @@
 # Released under the MIT License.
 # Copyright, 2026, by Samuel Williams.
 
-require "sus/fixtures/protocol/http/application_context"
+require "sus/fixtures/protocol/http/middleware_context"
 
 describe Sus::Fixtures::Protocol::HTTP::Client do
-	include Sus::Fixtures::Protocol::HTTP::ApplicationContext
+	include Sus::Fixtures::Protocol::HTTP::MiddlewareContext
 	
 	it "performs requests against protocol HTTP middleware" do
 		response = client.get("/")
@@ -31,7 +31,7 @@ describe Sus::Fixtures::Protocol::HTTP::Client do
 	end
 	
 	with "request metadata" do
-		let(:app) do
+		let(:middleware) do
 			::Protocol::HTTP::Middleware.for do |request|
 				::Protocol::HTTP::Response[
 					200,
@@ -57,7 +57,7 @@ describe Sus::Fixtures::Protocol::HTTP::Client do
 	end
 	
 	with "cookies" do
-		let(:app) do
+		let(:middleware) do
 			::Protocol::HTTP::Middleware.for do |request|
 				if request.path == "/set"
 					::Protocol::HTTP::Response[200, {"set-cookie" => "session=abc123; Path=/"}]
@@ -97,7 +97,7 @@ describe Sus::Fixtures::Protocol::HTTP::Client do
 	end
 	
 	with "redirects" do
-		let(:app) do
+		let(:middleware) do
 			::Protocol::HTTP::Middleware.for do |request|
 				case request.path
 				when "/redirect"
@@ -149,7 +149,7 @@ describe Sus::Fixtures::Protocol::HTTP::Client do
 	end
 	
 	with "a redirect without a location" do
-		let(:app) do
+		let(:middleware) do
 			::Protocol::HTTP::Middleware.for do |_request|
 				::Protocol::HTTP::Response[302]
 			end
@@ -164,17 +164,17 @@ describe Sus::Fixtures::Protocol::HTTP::Client do
 		end
 	end
 	
-	with "a failing application" do
-		let(:app) do
+	with "failing middleware" do
+		let(:middleware) do
 			::Protocol::HTTP::Middleware.for do |_request|
-				raise "Broken application!"
+				raise "Broken middleware!"
 			end
 		end
 		
 		it "closes the failed request" do
 			expect do
 				client.post("/", {}, "content")
-			end.to raise_exception(RuntimeError, message: be == "Broken application!")
+			end.to raise_exception(RuntimeError, message: be == "Broken middleware!")
 			
 			expect(last_request.body?).to be_nil
 		end

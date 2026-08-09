@@ -3,12 +3,12 @@
 # Released under the MIT License.
 # Copyright, 2026, by Samuel Williams.
 
-require "sus/fixtures/protocol/http/application_context"
+require "sus/fixtures/protocol/http/middleware_context"
 
-describe Sus::Fixtures::Protocol::HTTP::ApplicationContext do
-	include Sus::Fixtures::Protocol::HTTP::ApplicationContext
+describe Sus::Fixtures::Protocol::HTTP::MiddlewareContext do
+	include Sus::Fixtures::Protocol::HTTP::MiddlewareContext
 	
-	it "provides an application client" do
+	it "provides a middleware client" do
 		expect(client).to be_a(Sus::Fixtures::Protocol::HTTP::Client)
 	end
 	
