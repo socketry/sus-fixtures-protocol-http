@@ -9,9 +9,8 @@ module Sus
 	module Fixtures
 		# @namespace
 		module Protocol
-			# Test fixtures for protocol HTTP middleware.
+			# @namespace
 			module HTTP
-				# The gem version.
 				VERSION = "0.0.0"
 			end
 		end
