@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 	spec.authors = ["Samuel Williams"]
 	spec.license = "MIT"
 	
-	spec.cert_chain = ["release.cert"]
+	spec.cert_chain  = ["release.cert"]
 	spec.signing_key = File.expand_path("~/.gem/release.pem")
 	
 	spec.homepage = "https://github.com/socketry/sus-fixtures-protocol-http"
@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
 		"source_code_uri" => "https://github.com/socketry/sus-fixtures-protocol-http.git",
 	}
 	
-	spec.files = Dir.glob(["{context,lib}/**/*", "*.md"], File::FNM_DOTMATCH, base: __dir__)
+	spec.files = Dir.glob(["{lib}/**/*", "*.md"], File::FNM_DOTMATCH, base: __dir__)
 	
 	spec.required_ruby_version = ">= 3.3"
 	

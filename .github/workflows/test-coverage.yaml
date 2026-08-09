@@ -33,7 +33,7 @@ jobs:
       timeout-minutes: 5
       run: bundle exec bake test
     
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         include-hidden-files: true
         if-no-files-found: error
@@ -51,7 +51,7 @@ jobs:
         ruby-version: ruby
         bundler-cache: true
     
-    - uses: actions/download-artifact@v4
+    - uses: actions/download-artifact@v8
     
     - name: Validate coverage
       timeout-minutes: 5
